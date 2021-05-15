@@ -7,6 +7,18 @@
 //Time should stop once all questions are answered
 //Save Initials and Score.
 
+var viewScore = document.querySelector("#highscores");
+var savedScores = document.createElement("p");
+
+var displayQuestion = document.querySelector("#quiz-questions");
+var feedBack = document.querySelector("#question-feedback");
+
+var userInput = document.createElement("input");
+userInput.setAttribute("type", "text");
+userInput.setAttribute("placeholder", "Enter initals");
+userInput.setAttribute("name", userInput);
+
+
 var startBtn = document.createElement("input")
 submitBtn.className = "submit-btn";
 submitBtn.addClass - "hide";
@@ -17,6 +29,8 @@ var startButton = document.createElement("button");
 startButton = document.querySelector("#start-button");
 startButton.className = "start-btn";
 startButton.textContent = "Click to start";
+var playAgain = document.querySelector("#play-again")
+
 
 var answers = [];
 var score = 0;
@@ -134,6 +148,18 @@ var questionsArray = [{
         },
   ];
 
+  function runTimer() {
+    var timer = document.querySelector("#timer")
+    timeLeft--;
+    if (timeLeft > 0) {
+        setTimeout(runTimer, 1000)
+    } else if (timeLeft <= 0) {
+        timeLeft = 0;
+        saveScore();
+    }
+    timer.textContent = "Time Left:" + timeLeft;
+    console.log(timeLeft);
+}
 
   function createQuestion() {
     if (currentQuestion < questionsArray.length) {
@@ -251,9 +277,38 @@ function checkAnswerD(event) {
 }
 
 
+var initalsForm = document.createElement("form")
+userInput = document.createElement("input");
+userInput.className = "initials-form";
+userInput.setAttribute("type", "text");
+userInput.setAttribute("placeholder", "Enter initals");
+userInput.setAttribute("name", "name");
+
+initalsForm.appendChild(userInput);
+initalsForm.appendChild(submitBtn);
+
+document.getElementsByTagName("body")[0].appendChild(initalsForm);
+}
+
+function displayScore() {
+userInput.remove();
+submitBtn.remove();
+var viewScore = document.querySelector("#view-score")
+viewScore.textContent = "Score:";
+localStorage.setItem("name", userInput.value);
+localStorage.setItem("score", score);
+document.getElementsByTagName("body")[0].appendChild(viewScore);
+
+savedScores = document.createElement("p");
+savedScores.textContent = localStorage.getItem("name") + "  " + localStorage.getItem("score")
+document.querySelector("#view-score").appendChild(savedScores);
+event.preventDefault();
 
 startButton.addEventListener("click", runTimer);
 startButton.addEventListener("click", createQuestion);
+submitBtn.addEventListener("click", displayScore);
+viewScore.addEventListener("click", displayScore);
+playAgain.addEventListener("click", reStart);
 
 buttonA.addEventListener("click", checkAnswerA);
 buttonB.addEventListener("click", checkAnswerB);
