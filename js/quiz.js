@@ -87,7 +87,8 @@ var questionsArray = [{
                 text: "square brackets",
                 correct: false
             }
-        ]},
+        ]
+    },
 
         {
             number: 4,
@@ -130,10 +131,6 @@ var questionsArray = [{
                     correct: false
                 }
             ]
-    
-    
-    
-    
         },
   ];
 
@@ -252,3 +249,13 @@ function checkAnswerD(event) {
         createQuestion();
     }
 }
+
+
+
+startButton.addEventListener("click", runTimer);
+startButton.addEventListener("click", createQuestion);
+
+buttonA.addEventListener("click", checkAnswerA);
+buttonB.addEventListener("click", checkAnswerB);
+buttonC.addEventListener("click", checkAnswerC);
+buttonD.addEventListener("click", checkAnswerD);
