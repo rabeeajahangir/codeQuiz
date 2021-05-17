@@ -43,7 +43,7 @@ body, html,
 }
 .start-btn {
     font-size: 22px;
-    background-color:darkorchid;
+    background-color:rgb(50, 158, 204);
     color: white;
     margin: 50px 50px 20px 50px;
     width: 200px;
@@ -54,7 +54,7 @@ body, html,
 }
 .btn {
     font-size: 18px;
-    background-color:darkorchid;
+    background-color:rgb(50, 158, 204);
     color: white;
     margin: 20px 50px 0 50px;
     width: 400px;
@@ -63,7 +63,7 @@ body, html,
 }
 .submit-btn {
     font-size: 18px;
-    background-color:darkorchid;
+    background-color:rgb(50, 158, 204);
     color: white;
     width: 100px;
     height: max-content;

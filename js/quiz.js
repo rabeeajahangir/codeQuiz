@@ -18,19 +18,18 @@ userInput.setAttribute("type", "text");
 userInput.setAttribute("placeholder", "Enter initals");
 userInput.setAttribute("name", userInput);
 
-
-var startBtn = document.createElement("input")
+var submitBtn = document.createElement("input")
 submitBtn.className = "submit-btn";
-submitBtn.addClass - "hide";
-submitBtn.setAttributes("type", "submit")
-submitBtn.setAttributes("value", "submit")
+submitBtn.addClass = "hide";
+submitBtn.setAttribute("type", "submit")
+submitBtn.setAttribute("value", "Submit")
 
 var startButton = document.createElement("button");
 startButton = document.querySelector("#start-button");
 startButton.className = "start-btn";
 startButton.textContent = "Click to start";
-var playAgain = document.querySelector("#play-again")
 
+var playAgain = document.querySelector("#play-again")
 
 var answers = [];
 var score = 0;
@@ -38,130 +37,132 @@ var score = 0;
 var timeLeft = 45;
 timer.textContent = "Time Left:" + timeLeft;
 
-
 var currentQuestion = 0;
 var questionsArray = [{
-        number: 1,
-        question: "Commonly used data types DO NOT include:",
-        answers: [{
-                text: "Strings",
-                correct: false
-            },
-            {
-                text: "Booleans",
-                correct: false
-            },
-            {
-                text: "Alerts",
-                correct: true
-            },
-            {
-                text: "Numbers",
-                correct: false
-            }
-        ]
-    },
+    number: 1,
+    question: "Commonly used data types DO NOT include:",
+    answers: [{
+            text: "Strings",
+            correct: false
+        },
+        {
+            text: "Booleans",
+            correct: false
+        },
+        {
+            text: "Alerts",
+            correct: true
+        },
+        {
+            text: "Numbers",
+            correct: false
+        }
+    ]
+},
+{
+    number: 2,
+    question: "Arrays in JavaScript can be used to store _______.",
+    answers: [{
+            text: "numbers and strings'",
+            correct: false
+        },
+        {
+            text: "other arrays",
+            correct: false
+        },
+        {
+            text: "booleans",
+            correct: false
+        },
+        {
+            text: "all of the above",
+            correct: true
+        }
+    ]
+},
+{
+    number: 3,
+    question: "The condition in an if/else statement is enclosed with ______.",
+    answers: [{
+            text: "quotes",
+            correct: false
+        },
+        {
+            text: "curly brackets",
+            correct: true
+        },
+        {
+            text: "parenthesis",
+            correct: false
+        },
+        {
+            text: "square brackets",
+            correct: false
+        }
+    ]
+},
+
     {
-        number: 2,
-        question: "Arrays in JavaScript can be used to store _______.",
+        number: 4,
+        question: "A very helpful tool used during development and debugging for printing content to the debuggers is:",
         answers: [{
-                text: "numbers and strings'",
+                text: "Java Script",
                 correct: false
             },
             {
-                text: "other arrays",
+                text: "Terminal/Bash",
                 correct: false
             },
             {
-                text: "booleans",
+                text: "for loops",
                 correct: false
             },
             {
-                text: "all of the above",
+                text: "console.log",
                 correct: true
             }
-        ]
-    },
-    {
-        number: 3,
-        question: "The condition in an if/else statement is enclosed with ______.",
+        ]    
+
+    },{
+        number: 5,
+        question: "String values must be enclosed within _______ when being assigned to variables",
         answers: [{
-                text: "quotes",
-                correct: false
+                text: "commas",
+                correct: true
             },
             {
                 text: "curly brackets",
-                correct: true
+                correct: false
             },
             {
                 text: "parenthesis",
                 correct: false
             },
             {
-                text: "square brackets",
+                text: "quotes",
                 correct: false
             }
         ]
     },
+];
 
-        {
-            number: 4,
-            question: "A very helpful tool used during development and debugging for printing content to the debuggers is:",
-            answers: [{
-                    text: "Java Script",
-                    correct: false
-                },
-                {
-                    text: "Terminal/Bash",
-                    correct: false
-                },
-                {
-                    text: "for loops",
-                    correct: false
-                },
-                {
-                    text: "console.log",
-                    correct: true
-                }
-            ]    
-    
-        },{
-            number: 5,
-            question: "String values must be enclosed within _______ when being assigned to variables",
-            answers: [{
-                    text: "commas",
-                    correct: true
-                },
-                {
-                    text: "curly brackets",
-                    correct: false
-                },
-                {
-                    text: "parenthesis",
-                    correct: false
-                },
-                {
-                    text: "quotes",
-                    correct: false
-                }
-            ]
-        },
-  ];
 
-  function runTimer() {
+
+function runTimer() {
     var timer = document.querySelector("#timer")
     timeLeft--;
     if (timeLeft > 0) {
         setTimeout(runTimer, 1000)
-    } else if (timeLeft <= 0) {
+    } else if (timeLeft <= 0 || currentQuestion <=0) {
         timeLeft = 0;
         saveScore();
     }
+    
     timer.textContent = "Time Left:" + timeLeft;
     console.log(timeLeft);
 }
 
-  function createQuestion() {
+function createQuestion() {
     if (currentQuestion < questionsArray.length) {
         startButton.remove();
         buttonA = document.querySelector("#buttonA").removeAttribute("hide");
@@ -195,6 +196,7 @@ var questionsArray = [{
         currentQuestion++
     } else if (currentQuestion >= questionsArray.length) {
         saveScore();
+        clearTimeout(timeLeft);
     }
 };
 
@@ -207,6 +209,35 @@ function saveScore() {
     buttonD.remove();
     submitBtn.removeAttribute("hide")
 
+ 
+    var initalsForm = document.createElement("form")
+    userInput = document.createElement("input");
+    userInput.className = "initials-form";
+    userInput.setAttribute("type", "text");
+    userInput.setAttribute("placeholder", "Enter initals");
+    userInput.setAttribute("name", "name");
+
+    initalsForm.appendChild(userInput);
+    initalsForm.appendChild(submitBtn);
+
+    document.getElementsByTagName("body")[0].appendChild(initalsForm);
+}
+
+function displayScore() {
+    userInput.remove();
+    submitBtn.remove();
+    var viewScore = document.querySelector("#view-score")
+    viewScore.textContent = "Score:";
+    localStorage.setItem("name", userInput.value);
+    localStorage.setItem("score", score);
+    document.getElementsByTagName("body")[0].appendChild(viewScore);
+
+    savedScores = document.createElement("p");
+    savedScores.textContent = localStorage.getItem("name") + "  " + localStorage.getItem("score")
+    document.querySelector("#view-score").appendChild(savedScores);
+    event.preventDefault();
+
+}
 
 function checkAnswerA(event) {
     if (
@@ -276,33 +307,10 @@ function checkAnswerD(event) {
     }
 }
 
-
-var initalsForm = document.createElement("form")
-userInput = document.createElement("input");
-userInput.className = "initials-form";
-userInput.setAttribute("type", "text");
-userInput.setAttribute("placeholder", "Enter initals");
-userInput.setAttribute("name", "name");
-
-initalsForm.appendChild(userInput);
-initalsForm.appendChild(submitBtn);
-
-document.getElementsByTagName("body")[0].appendChild(initalsForm);
+function reStart () {
+    location.reload();
 }
 
-function displayScore() {
-userInput.remove();
-submitBtn.remove();
-var viewScore = document.querySelector("#view-score")
-viewScore.textContent = "Score:";
-localStorage.setItem("name", userInput.value);
-localStorage.setItem("score", score);
-document.getElementsByTagName("body")[0].appendChild(viewScore);
-
-savedScores = document.createElement("p");
-savedScores.textContent = localStorage.getItem("name") + "  " + localStorage.getItem("score")
-document.querySelector("#view-score").appendChild(savedScores);
-event.preventDefault();
 
 startButton.addEventListener("click", runTimer);
 startButton.addEventListener("click", createQuestion);
